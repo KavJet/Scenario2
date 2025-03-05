@@ -1,0 +1,27 @@
+.main {
+    background-color: #0842a0;
+    border-style: solid;
+    border-color: #0057E2;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    width: 35em;
+    height: 4.5em;
+    box-shadow: 0px 4px 0.5em rgba(0, 0, 0, 0.25);
+    /* margin: 0px auto; */
+    position:absolute;
+    bottom:0;
+    left:50%;
+    transform: translate(-50%, 0);
+}
+
+.container {
+    display:flex;
+    justify-content: center;
+    list-style: none;
+    padding-left:0em;
+}
+
+.container > li {
+    padding-left: 1.5em;
+    padding-right: 1.5em;
+}

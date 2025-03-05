@@ -1,0 +1,15 @@
+.container {
+    width: 5em;
+}
+
+.image:active {
+    transform: translateY(4px);
+}
+
+.image:hover {
+    cursor: pointer;
+}
+
+.image {
+    width: 3em;
+}
