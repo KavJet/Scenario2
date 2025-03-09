@@ -37,9 +37,10 @@ function EmailListItem({ email, onClick }: EmailListItemProps) {
 
 interface EmailContentProps {
     email: Email
+    onReply: (replyIndex: number) => void
 }
 
-function EmailContent({ email }: EmailContentProps) {
+function EmailContent({ email, onReply }: EmailContentProps) {
     return (
         <div className="email-content-scroll">
             <h2>{email.subject}</h2>
@@ -52,6 +53,33 @@ function EmailContent({ email }: EmailContentProps) {
                 {email.date.day} at {email.date.time}
             </div>
             <div className="email-content-body">{email.body}</div>
+
+            {email.chosenReply !== -1 ? (
+                <>
+                    <hr className="email-reply-separator" />
+                    <div className="email-chosen-reply">
+                        <div className="email-chosen-reply-label">
+                            Your reply:
+                        </div>
+                        {email.replyOptions[email.chosenReply].content}
+                    </div>
+                </>
+            ) : (
+                <div className="email-reply-options">
+                    {email.replyOptions.map((option, index) => (
+                        <button
+                            key={index}
+                            className="email-reply-button"
+                            disabled={
+                                !email.canReply || email.chosenReply !== -1
+                            }
+                            onClick={() => onReply(index)}
+                        >
+                            {option.content}
+                        </button>
+                    ))}
+                </div>
+            )}
         </div>
     )
 }
@@ -77,6 +105,25 @@ export default function EmailApp({ initialEmails = [] }: EmailAppProps) {
             )
         }
         setSelectedEmail(email)
+    }
+
+    const handleEmailReply = (replyIndex: number) => {
+        if (
+            !selectedEmail ||
+            !selectedEmail.canReply ||
+            selectedEmail.chosenReply !== -1
+        ) {
+            return
+        }
+
+        const updatedEmails = emails.map((email) =>
+            email === selectedEmail
+                ? { ...email, chosenReply: replyIndex }
+                : email
+        )
+
+        setEmails(updatedEmails)
+        setSelectedEmail({ ...selectedEmail, chosenReply: replyIndex })
     }
 
     if (emails.length === 0) {
@@ -106,7 +153,10 @@ export default function EmailApp({ initialEmails = [] }: EmailAppProps) {
                         Select an email to view
                     </div>
                 ) : (
-                    <EmailContent email={selectedEmail} />
+                    <EmailContent
+                        email={selectedEmail}
+                        onReply={handleEmailReply}
+                    />
                 )}
             </div>
         </div>
