@@ -1,29 +1,14 @@
-import { useState } from "react"
+import {useState} from "react"
 import "../../styles/email.css"
-import { useEmails } from "../hooks/useEmails"
-
-export interface Email {
-    subject: string
-    sender: { name: string; email: string }
-    date: { day: number; time: string }
-    replyOptions: { content: string }[]
-    body: string
-    seen: boolean
-    chosenReply: number
-    canReply: boolean
-    onReply?: (replyIndex: number) => void
-}
-
-export interface EmailAppController {
-    addEmail: (email: Email) => void
-}
+import {useEmails} from "../hooks/useEmails"
+import {Email} from "../models/EmailModel.ts";
 
 interface EmailListItemProps {
     email: Email
     onClick: (email: Email) => void
 }
 
-function EmailListItem({ email, onClick }: EmailListItemProps) {
+function EmailListItem({email, onClick}: EmailListItemProps) {
     return (
         <div
             onClick={() => onClick(email)}
@@ -46,7 +31,7 @@ interface EmailContentProps {
     onReply: (replyIndex: number) => void
 }
 
-function EmailContent({ email, onReply }: EmailContentProps) {
+function EmailContent({email, onReply}: EmailContentProps) {
     return (
         <div className="email-content-scroll">
             <h2>{email.subject}</h2>
@@ -62,7 +47,7 @@ function EmailContent({ email, onReply }: EmailContentProps) {
 
             {email.chosenReply !== -1 ? (
                 <>
-                    <hr className="email-reply-separator" />
+                    <hr className="email-reply-separator"/>
                     <div className="email-chosen-reply">
                         <div className="email-chosen-reply-label">
                             Your reply:
@@ -94,7 +79,7 @@ function EmailContent({ email, onReply }: EmailContentProps) {
 }
 
 export default function EmailApp() {
-    const { emails, markEmailAsSeen, setEmailReply } = useEmails()
+    const {emails, markEmailAsSeen, setEmailReply} = useEmails()
     const [selectedEmail, setSelectedEmail] = useState<Email | null>(null)
 
     const handleEmailSelect = (email: Email) => {
@@ -114,7 +99,7 @@ export default function EmailApp() {
         }
 
         setEmailReply(selectedEmail, replyIndex)
-        setSelectedEmail({ ...selectedEmail, chosenReply: replyIndex })
+        setSelectedEmail({...selectedEmail, chosenReply: replyIndex})
     }
 
     if (emails.length === 0) {

@@ -1,6 +1,5 @@
-import { useEffect, useState } from "react"
-import { Email } from "../components/email"
-import EmailModel from "../models/EmailModel"
+import {useEffect, useState} from "react"
+import EmailModel, {Email} from "../models/EmailModel"
 
 export function useEmails() {
     const [emails, setEmails] = useState<Email[]>(EmailModel.getEmails())

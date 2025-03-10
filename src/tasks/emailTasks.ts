@@ -1,6 +1,6 @@
-import { Task } from "../taskManager"
+import {Task} from "../taskManager"
 import EmailModel from "../models/EmailModel"
-import { defaultEmail } from "../assets/demoData"
+import {defaultEmail} from "../assets/demoData"
 
 export const testEmailTask = new Task(
     "1",
@@ -10,18 +10,18 @@ export const testEmailTask = new Task(
         EmailModel.addEmail({
             ...defaultEmail,
             subject: "Test",
-            replyOptions: [{ content: "Test" }],
+            replyOptions: [{content: "Test"}],
             canReply: true,
-            onReply: (replyIndex: number) => {
+            onReply: () => {
                 executeNextStage()
             },
         })
     },
-    (executeNextStage: () => void) => {
+    () => {
         EmailModel.addEmail({
             ...defaultEmail,
             subject: "The test worked",
-            replyOptions: [{ content: "Test" }],
+            replyOptions: [{content: "Test"}],
         })
     }
 )

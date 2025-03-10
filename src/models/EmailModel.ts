@@ -1,5 +1,16 @@
-import { Email } from "../components/email"
-import { demoEmails } from "../assets/demoData"
+import {demoEmails} from "../assets/demoData"
+
+export interface Email {
+    subject: string
+    sender: { name: string; email: string }
+    date: { day: number; time: string }
+    replyOptions: { content: string }[]
+    body: string
+    seen: boolean
+    chosenReply: number
+    canReply: boolean
+    onReply?: (replyIndex: number) => void
+}
 
 export class EmailModel {
     private static instance: EmailModel | null = null
@@ -29,14 +40,14 @@ export class EmailModel {
 
     public markEmailAsSeen(email: Email): void {
         this.emails = this.emails.map((e) =>
-            e === email ? { ...e, seen: true } : e
+            e === email ? {...e, seen: true} : e
         )
         this.notifyListeners()
     }
 
     public setEmailReply(email: Email, replyIndex: number): void {
         this.emails = this.emails.map((e) =>
-            e === email ? { ...e, chosenReply: replyIndex } : e
+            e === email ? {...e, chosenReply: replyIndex} : e
         )
         this.notifyListeners()
     }
