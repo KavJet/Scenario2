@@ -1,12 +1,14 @@
-import EmailApp from "../components/email.tsx"
-import Taskbar from "../components/taskbar.tsx"
+import EmailApp from "../components/email"
+import Taskbar from "../components/taskbar"
 import "../../styles/demo.css"
-import { demoEmails } from "../assets/demoData.ts"
+import { testEmailTask } from "../tasks/emailTasks"
+
+testEmailTask.start()
 
 export default function Demo() {
     return (
         <div className="demo-container">
-            <EmailApp initialEmails={demoEmails} />
+            <EmailApp />
             <Taskbar />
         </div>
     )

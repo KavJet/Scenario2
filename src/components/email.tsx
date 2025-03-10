@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import "../../styles/email.css"
+import { useEmails } from "../hooks/useEmails"
 
 export interface Email {
     subject: string
@@ -10,6 +11,11 @@ export interface Email {
     seen: boolean
     chosenReply: number
     canReply: boolean
+    onReply?: (replyIndex: number) => void
+}
+
+export interface EmailAppController {
+    addEmail: (email: Email) => void
 }
 
 interface EmailListItemProps {
@@ -73,7 +79,10 @@ function EmailContent({ email, onReply }: EmailContentProps) {
                             disabled={
                                 !email.canReply || email.chosenReply !== -1
                             }
-                            onClick={() => onReply(index)}
+                            onClick={() => {
+                                onReply(index)
+                                email.onReply?.(index)
+                            }}
                         >
                             {option.content}
                         </button>
@@ -84,25 +93,13 @@ function EmailContent({ email, onReply }: EmailContentProps) {
     )
 }
 
-interface EmailAppProps {
-    initialEmails?: Email[]
-}
-
-export default function EmailApp({ initialEmails = [] }: EmailAppProps) {
-    const [emails, setEmails] = useState<Email[]>([])
+export default function EmailApp() {
+    const { emails, markEmailAsSeen, setEmailReply } = useEmails()
     const [selectedEmail, setSelectedEmail] = useState<Email | null>(null)
-
-    useEffect(() => {
-        setEmails(initialEmails)
-    }, [])
 
     const handleEmailSelect = (email: Email) => {
         if (!email.seen) {
-            setEmails((currentEmails) =>
-                currentEmails.map((e) =>
-                    e === email ? { ...e, seen: true } : e
-                )
-            )
+            markEmailAsSeen(email)
         }
         setSelectedEmail(email)
     }
@@ -116,13 +113,7 @@ export default function EmailApp({ initialEmails = [] }: EmailAppProps) {
             return
         }
 
-        const updatedEmails = emails.map((email) =>
-            email === selectedEmail
-                ? { ...email, chosenReply: replyIndex }
-                : email
-        )
-
-        setEmails(updatedEmails)
+        setEmailReply(selectedEmail, replyIndex)
         setSelectedEmail({ ...selectedEmail, chosenReply: replyIndex })
     }
 
