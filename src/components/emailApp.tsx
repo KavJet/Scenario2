@@ -1,14 +1,14 @@
-import {useState} from "react"
+import { useState } from "react"
 import "../../styles/email.css"
-import {useEmails} from "../hooks/useEmails"
-import {Email} from "../models/EmailModel.ts";
+import EmailModel, { Email } from "../models/EmailModel"
+import { useModel } from "../hooks/useModel"
 
 interface EmailListItemProps {
     email: Email
     onClick: (email: Email) => void
 }
 
-function EmailListItem({email, onClick}: EmailListItemProps) {
+function EmailListItem({ email, onClick }: EmailListItemProps) {
     return (
         <div
             onClick={() => onClick(email)}
@@ -31,7 +31,7 @@ interface EmailContentProps {
     onReply: (replyIndex: number) => void
 }
 
-function EmailContent({email, onReply}: EmailContentProps) {
+function EmailContent({ email, onReply }: EmailContentProps) {
     return (
         <div className="email-content-scroll">
             <h2>{email.subject}</h2>
@@ -47,7 +47,7 @@ function EmailContent({email, onReply}: EmailContentProps) {
 
             {email.chosenReply !== -1 ? (
                 <>
-                    <hr className="email-reply-separator"/>
+                    <hr className="email-reply-separator" />
                     <div className="email-chosen-reply">
                         <div className="email-chosen-reply-label">
                             Your reply:
@@ -79,12 +79,12 @@ function EmailContent({email, onReply}: EmailContentProps) {
 }
 
 export default function EmailApp() {
-    const {emails, markEmailAsSeen, setEmailReply} = useEmails()
+    const emails = useModel(EmailModel)
     const [selectedEmail, setSelectedEmail] = useState<Email | null>(null)
 
     const handleEmailSelect = (email: Email) => {
         if (!email.seen) {
-            markEmailAsSeen(email)
+            EmailModel.markEmailAsSeen(email)
         }
         setSelectedEmail(email)
     }
@@ -98,8 +98,8 @@ export default function EmailApp() {
             return
         }
 
-        setEmailReply(selectedEmail, replyIndex)
-        setSelectedEmail({...selectedEmail, chosenReply: replyIndex})
+        EmailModel.setEmailReply(selectedEmail, replyIndex)
+        setSelectedEmail({ ...selectedEmail, chosenReply: replyIndex })
     }
 
     if (emails.length === 0) {

@@ -1,4 +1,5 @@
-import {demoEmails} from "../assets/demoData"
+import { demoEmails } from "../assets/demoData"
+import { BaseModel } from "./BaseModel.ts"
 
 export interface Email {
     subject: string
@@ -12,14 +13,29 @@ export interface Email {
     onReply?: (replyIndex: number) => void
 }
 
-export class EmailModel {
+// Default email with all fields blank
+export const defaultEmail: Email = {
+    subject: "",
+    sender: {
+        name: "",
+        email: "",
+    },
+    date: {
+        day: 0,
+        time: "",
+    },
+    replyOptions: [],
+    body: "",
+    seen: false,
+    chosenReply: -1,
+    canReply: false,
+}
+
+export class EmailModel extends BaseModel<Email[]> {
     private static instance: EmailModel | null = null
-    private emails: Email[] = []
-    private listeners: Set<() => void> = new Set()
 
     private constructor() {
-        // Initialize with demo data
-        this.emails = [...demoEmails]
+        super([...demoEmails])
     }
 
     public static getInstance(): EmailModel {
@@ -29,36 +45,23 @@ export class EmailModel {
         return EmailModel.instance
     }
 
-    public getEmails(): Email[] {
-        return [...this.emails]
-    }
-
     public addEmail(email: Email): void {
-        this.emails = [...this.emails, email]
+        this.state = [...this.state, email]
         this.notifyListeners()
     }
 
     public markEmailAsSeen(email: Email): void {
-        this.emails = this.emails.map((e) =>
-            e === email ? {...e, seen: true} : e
+        this.state = this.state.map((e) =>
+            e === email ? { ...e, seen: true } : e
         )
         this.notifyListeners()
     }
 
     public setEmailReply(email: Email, replyIndex: number): void {
-        this.emails = this.emails.map((e) =>
-            e === email ? {...e, chosenReply: replyIndex} : e
+        this.state = this.state.map((e) =>
+            e === email ? { ...e, chosenReply: replyIndex } : e
         )
         this.notifyListeners()
-    }
-
-    public subscribe(listener: () => void): () => void {
-        this.listeners.add(listener)
-        return () => this.listeners.delete(listener)
-    }
-
-    private notifyListeners(): void {
-        this.listeners.forEach((listener) => listener())
     }
 }
 

@@ -21,7 +21,6 @@ class Task {
 
         let currentStageIndex = 0
         const executeNextStage = () => {
-            console.log("hi")
             currentStageIndex++
             if (currentStageIndex < this.stages.length) {
                 this.stages[currentStageIndex](executeNextStage)
@@ -33,4 +32,4 @@ class Task {
     }
 }
 
-export { Task }
+export {Task}

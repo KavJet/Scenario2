@@ -178,20 +178,3 @@ export const demoEmails: Email[] = [
     },
 ]
 
-// Default email with all fields blank
-export const defaultEmail: Email = {
-    subject: "",
-    sender: {
-        name: "",
-        email: "",
-    },
-    date: {
-        day: 0,
-        time: "",
-    },
-    replyOptions: [],
-    body: "",
-    seen: false,
-    chosenReply: -1,
-    canReply: false,
-}
