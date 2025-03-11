@@ -20,7 +20,7 @@ export abstract class BaseModel<T> {
         this.notifyListeners()
     }
 
-    protected notifyListeners(): void {
+    private notifyListeners(): void {
         this.listeners.forEach((listener) => listener())
     }
 }

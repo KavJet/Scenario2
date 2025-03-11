@@ -1,5 +1,5 @@
-import { demoEmails } from "../assets/demoData"
-import { BaseModel } from "./BaseModel.ts"
+import {demoEmails} from "../assets/demoData"
+import {BaseModel} from "./BaseModel.ts"
 
 export interface Email {
     subject: string
@@ -46,22 +46,20 @@ export class EmailModel extends BaseModel<Email[]> {
     }
 
     public addEmail(email: Email): void {
-        this.state = [...this.state, email]
+        this.setState([...this.getState(), email])
         this.notifyListeners()
     }
 
     public markEmailAsSeen(email: Email): void {
-        this.state = this.state.map((e) =>
-            e === email ? { ...e, seen: true } : e
-        )
-        this.notifyListeners()
+        this.setState(this.getState().map((e) =>
+            e === email ? {...e, seen: true} : e
+        ))
     }
 
     public setEmailReply(email: Email, replyIndex: number): void {
-        this.state = this.state.map((e) =>
-            e === email ? { ...e, chosenReply: replyIndex } : e
-        )
-        this.notifyListeners()
+        this.setState(this.getState().map((e) =>
+            e === email ? {...e, chosenReply: replyIndex} : e
+        ))
     }
 }
 
