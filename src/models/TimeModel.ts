@@ -1,9 +1,18 @@
-class TimeModel {
+import {BaseModel} from "./BaseModel"
+
+export interface TimeProps {
+    day: number
+    time: number
+}
+
+class TimeModel extends BaseModel<TimeProps>{
     private static instance: TimeModel | null = null
-    private day: number = 0
-    private timeRemaining: number = 10
     private dayTimer: any
     private paused: boolean = false
+
+    private constructor() {
+        super({day: 0, time: 10})
+    }
 
     public static getInstance(): TimeModel {
         if (!TimeModel.instance) {
@@ -12,57 +21,68 @@ class TimeModel {
         return TimeModel.instance
     }
 
-    public getTime(): number {return this.timeRemaining}
-    public getDay(): number {return this.day}
+    public getTime(): number {return this.state.time}
+    public getDay(): number {return this.state.day}
     
     private resetTimer(): void {
-        this.timeRemaining = 10
-        this.day = 0
+        this.state.time = 10
+        this.state.day = 0
         this.paused = false
         this.dayTimer = null
     }
 
     public startNextDay(): void {
-        if (this.day<5) {
-            this.day++
-            this.timeRemaining = 10
+        if (this.state.day<5) {
+            this.state.day++
+            this.state.time = 10
             this.resumeTimer()
             this.runTimer()
         } else {
             this.endWeek()
         }
+        this.notifyListeners()
 
     }
 
     private runTimer(): void { //? bad name
         this.dayTimer = setInterval(() => {
             if (!this.paused){
-                this.timeRemaining--
-                if (this.timeRemaining <= 0) {this.endDay()}
+                this.state.time--
+                if (this.state.time <= 0) {this.endDay()}
             }
         }, 1000)
     }
 
-    public pauseTimer(): void {this.paused = true}
-    public resumeTimer(): void {this.paused = false}
+    public pauseTimer(): void {
+        this.paused = true
+        this.notifyListeners()
+    }
+    
+    public resumeTimer(): void {
+        this.paused = false
+        this.notifyListeners()
+    }
 
     public endDay(): void {
         console.log("day finished")
         if(this.dayTimer) {
             clearInterval(this.dayTimer)
             this.dayTimer = null
-            this.timeRemaining = 0
+            this.state.time = 0
         }
+        this.notifyListeners()
     }
 
     public startWeek(): void {
         this.resetTimer()
         this.startNextDay()
+        this.notifyListeners()
     }
     
     public endWeek(): void {
         console.log("week finished")
         this.resetTimer()
+        this.notifyListeners()
     }
 } 
 

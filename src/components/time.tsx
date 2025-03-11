@@ -1,20 +1,11 @@
 import React from 'react'
 import styles from "../../styles/time.module.css"
-import useTime from "../models/useTime.ts"
+import TimeModel, {TimeProps} from "../models/TimeModel.ts"
 import Button from "./button.tsx"
+import { useModel } from "../hooks/useModel.ts"
 
-// necessary? 
-// 1) is type needed or can they just be passed as props in demo.tsx
-// 2) should probably just use the model
-interface TimeProps {
-    day: number
-    time: number
-}
-
-export default function Time(props: TimeProps) {
-    const { day, time, pauseTimer, resumeTimer, startWeek, startNextDay, endDay, endWeek } = useTime()
-
-
+export default function Time() {
+    const {day, time} = useModel(TimeModel)
     
     return (
         <>
@@ -22,12 +13,12 @@ export default function Time(props: TimeProps) {
                 <p>Day: {day}<br/>Time Remaining: {time}</p>
             </div>
 
-            <Button onClick={startWeek} label="Start Week" />
-            <Button onClick={startNextDay} label="Start Next Day" />
-            <Button onClick={pauseTimer} label="Pause Timer" />
-            <Button onClick={resumeTimer} label="Resume Timer" />
-            <Button onClick={endDay} label="End Day" />
-            <Button onClick={endWeek} label="End Week" />
+            <Button onClick={TimeModel.startWeek} label="Start Week" />
+            <Button onClick={TimeModel.startNextDay} label="Start Next Day" />
+            <Button onClick={TimeModel.pauseTimer} label="Pause Timer" />
+            <Button onClick={TimeModel.resumeTimer} label="Resume Timer" />
+            <Button onClick={TimeModel.endDay} label="End Day" />
+            <Button onClick={TimeModel.endWeek} label="End Week" />
         </>
     )
 }
