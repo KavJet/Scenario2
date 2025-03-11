@@ -1,7 +1,12 @@
-import Taskbar from '../components/taskbar.tsx'
+import Desktop from "../components/desktop"
+
 
 export default function Demo() {
+    
+
     return (
-        <Taskbar></Taskbar>
+        <div>
+            <Desktop></Desktop>
+        </div>
     )
 }

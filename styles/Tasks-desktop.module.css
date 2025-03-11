@@ -1,0 +1,36 @@
+.container {
+    background-color: rgb(121, 121, 253);
+    max-width: 25vw;
+    max-height: 25vw;
+    margin: 5px;
+    border-radius: 15px;
+    padding-left: 1em;
+    padding-bottom: 1em;
+}
+
+.activeTasksWrapper {
+    max-height: 180px; /* Adjust the height as needed */
+    overflow-y: auto;
+}
+
+.tasks {
+    padding-top: 0.5em;
+    margin-bottom: 0;
+}
+.activeTask {
+    margin-right: 0.5em;
+    padding: 0.5em;
+}
+
+.activeTask:hover {
+    background-color: rgb(159, 159, 246);
+    cursor:pointer;
+}
+
+.activeTask > h3 {
+    margin: 0;
+}
+
+.activeTask > p {
+    margin: 0;
+}
