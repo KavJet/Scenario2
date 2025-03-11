@@ -1,0 +1,103 @@
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    
+  }
+    .download-page {
+      display: flex;
+      flex-direction: column;
+      background-color: white;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+  .download-card {
+      background-color: #100362;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0px 0px 10px rgba(109, 104, 104, 0.1);
+      text-align: center;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 80%;
+      max-width: 400px;
+      margin: 0 auto;
+      height: auto;
+      min-height: 300px;
+  }
+
+.download-button {
+    background-color: #7f8488;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    align-self: center; 
+    margin-top: auto; 
+}
+
+  .container {
+    align-items: center;
+    width: 100%;
+    max-width: 400px;
+    margin: 100px auto;
+    background: rgb(31, 0, 103);
+    padding: 20px;
+    box-shadow: 0px 0px 10px rgba(205, 196, 196, 0.1);
+    border-radius: 30px;
+    text-align: center;
+    color: rgb(225, 222, 228);
+  }
+  
+  input, select, button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  button {
+    background-color: #5683a1;
+    color: white;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    }
+    
+    button:hover {
+    background-color: #e2e8f0;
+    }
+    
+    button:active {
+    background-color: #7c99bf;
+    transform: none;
+    }
+    
+    .form-group {
+    margin-bottom: 15px;
+    text-align: left;
+    }
+    
+    .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+    }
+    
+    .form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    }
+

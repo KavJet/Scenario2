@@ -1,0 +1,168 @@
+body {
+    background: linear-gradient(45deg, red, yellow);
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    color: lime;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+  }
+  
+  .card {
+    background: purple;
+    border: 5px dashed cyan;
+    padding: 20px;
+    margin: 20px auto;
+    width: 80%;
+    box-shadow: 10px 10px 20px black;
+    text-transform: uppercase;
+  }
+  
+  .card button, .submit-button {
+    background-color: red;
+    color: white;
+    font-size: 30px;
+    font-weight: bold;
+    padding: 15px 30px;
+    border: 5px solid yellow;
+    text-shadow: 2px 2px black;
+    cursor: pointer;
+    animation: shake 0.5s infinite alternate;
+    margin: 20px 0;
+  }
+  
+  @keyframes shake {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(10px); }
+  }
+  
+  .card button:hover, .submit-button:hover {
+    background: lime;
+    color: red;
+    border: 5px dashed black;
+    font-size: 40px;
+  }
+  
+  .blink-image {
+    animation: blink 1s infinite alternate;
+    border: 3px solid yellow;
+  }
+  
+  @keyframes blink {
+    0% { opacity: 0.5; }
+    100% { opacity: 1; }
+  }
+  
+  .flash-text {
+    color: yellow;
+    font-size: 24px;
+    font-weight: bold;
+    animation: flash 0.3s infinite alternate;
+    margin: 10px 0;
+    display: block;
+  }
+  
+  @keyframes flash {
+    0% { color: yellow; }
+    100% { color: red; }
+  }
+  
+  .popup-ads {
+    position: relative;
+    height: 150px;
+    margin-top: 30px;
+  }
+  
+  .ad {
+    position: absolute;
+    background: yellow;
+    color: red;
+    padding: 10px;
+    border: 3px solid red;
+    font-weight: bold;
+    font-size: 16px;
+    animation: float 4s infinite alternate;
+    z-index: 100;
+  }
+  
+  .ad:nth-child(1) {
+    top: 10px;
+    left: 10%;
+    animation-delay: 0s;
+  }
+  
+  .ad:nth-child(2) {
+    top: 50px;
+    right: 15%;
+    animation-delay: 0.5s;
+  }
+  
+  .ad:nth-child(3) {
+    bottom: 10px;
+    left: 30%;
+    animation-delay: 1s;
+  }
+  
+  @keyframes float {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(20px, 20px); }
+  }
+  
+  .payment-form {
+    margin: 20px 0;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.5);
+    border: 3px dashed yellow;
+  }
+  
+  .form-field {
+    margin: 15px 0;
+    text-align: left;
+  }
+  
+  .credit-card-input {
+    width: 100%;
+    padding: 12px;
+    background: black;
+    color: lime;
+    border: 2px solid lime;
+    font-size: 18px;
+    margin-top: 5px;
+  }
+  
+  .submit-button {
+    width: 100%;
+  }
+  
+  .success-message {
+    background: yellow;
+    color: red;
+    padding: 15px;
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 20px;
+    animation: pulse 0.5s infinite alternate;
+  }
+  
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.05); }
+  }
+  
+  .security-badges {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .fake-badge {
+    background: gold;
+    color: purple;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+  }
+  
+  marquee {
+    margin: 15px 0;
+  }
