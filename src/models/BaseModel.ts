@@ -1,5 +1,5 @@
 export abstract class BaseModel<T> {
-    protected state: T
+    private state: T
     private listeners: Set<() => void> = new Set()
 
     protected constructor(initialState: T) {
@@ -13,6 +13,11 @@ export abstract class BaseModel<T> {
 
     public getState(): T {
         return this.state
+    }
+
+    public setState(state: T): void {
+        this.state = state
+        this.notifyListeners()
     }
 
     protected notifyListeners(): void {
