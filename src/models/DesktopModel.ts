@@ -18,8 +18,8 @@ export class DesktopModel extends BaseModel<OpenWindow>{
     }
 
     public manageWindows(window: OpenWindow): void {
-        this.state = window
-        console.log("ManageWindows called: ", this.state)
+        this.setState(window)
+        console.log("ManageWindows called: ", this.getState())
         this.notifyListeners()
     }
 }
